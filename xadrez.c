@@ -1,11 +1,33 @@
 #include <stdio.h>
 
+  void movetorre(int casas) {        //Em breve vou alterar o nome do inteiro casas para casastorre
+        if (casas > 0){
+            printf("Direita\n");
+            movetorre(casas - 1);
+        }
+    }
+    void movebispocima (int casas) {  //Move o bispo 5 casas para a diagonal cima-direita (ou seja, 5 pra cima e 5 direita.)
+        if (casas > 0) {
+            printf("Cima\n");
+            movebispocima(casas -1);
+        }
+    }
+    void movebispodireita (int casas) {
+        if (casas > 0) {
+            printf("Direita\n");
+            movebispodireita(casas - 1);
+         }       
+    }
+    
+
+
 int main(){
 
 
-    int movimento;         // vai registrar o movimento da peça que o jogador quer fazer
+   /* int movimento;          registra movimento da peça - não está sendo utilizado, mas vai servir de backup */
     int opcaojogador = 0;    //Vai registrar a opção do menu escolhida
-
+    //Registro de loops recursivos de peças com void
+  
 
     while (opcaojogador != 5) {   
     printf("\nXadrez Básico para testes\n");
@@ -13,60 +35,80 @@ int main(){
     printf("1. Mover torre\n");    //Conforme requisitos do nivel novato, a torre deve se mover 5 casas a direita
     printf("2. Mover bispo\n");    //Conforme requisitos do nivel novato, o bispo deve se mover 5 casas a diagonal direita (ou seja, 5 cima, e 5 direita)
     printf("3. Mover rainha\n");   //Conforme requisitos do nivel novato, a rainha deve se mover 5 casas a esquerda 
-    printf("4. Mover cavalo\n");   //Conforme requisitos do nivel aventureiro, o cavalo se move em L a embaixo-direita (duas baixo, 1 esquerda)
+    printf("4. Mover cavalo\n");   //Conforme requisitos do nivel aventureiro, o cavalo se move em L a embaixo-direita (duas baixo, 1 direita). E mudou no nivel mestre, para o sentido inverso (2 cima 1 direita)
     printf("5. Sair do jogo\n");
     
     scanf("%d", &opcaojogador);
     if (opcaojogador == 5)           //Se o jogador digitar 5, o jogo encerra ou reinicia
     {
     printf("Saindo do jogo, obrigado por testar\n");
-    break;          //Break para caso o jogador não decida encerrar o jogo
+    break;
     }
-    switch (opcaojogador)     //Opções de jogo começam
+    switch (opcaojogador)
     {
     case 1:    // Movimento Torre ---------
-        for (int movimentotorre = 0; movimentotorre < 5; movimentotorre++){   //Instrução for vai repetir o movimento 5x
-        printf("Direita\n"); 
-    }
-    break;
+    printf("\nVocê escolheu: Torre\n");
+    printf("Quantas casas quer mover a torre?\n"); // a direita apenas
     
-    //---------------------- Movimento Bispo
-    case 2:
-        for(int movimentocimabispo = 0; movimentocimabispo < 5; movimentocimabispo++) {           // Observar comentários da linha abaixo
-        printf("Cima\n"); }
-        for(int movimentodireitabispo = 0; movimentodireitabispo <5; movimentodireitabispo++)  {  // É utilizado 2 for's para expressar o que foi requisitado sobre a diagonal direita ser "cima e direita" individualmente
-        printf("Direita\n"); }
-     
+    int casastorre;               //Vai permitir o jogador a escolher a quant. de casas, junto com o scanf abaixo
+    scanf("%d", &casastorre);
+        movetorre (casastorre);  //Executa a ação (teoricamente)
     break;
-  
-    //---------------------Movimento Rainha
-    case 3:
-        for(int movimentoesquerdarainha = 0; movimentoesquerdarainha < 5; movimentoesquerdarainha++) {
-            printf("Esquerda\n");
-    }
+
+    case 2:    //Movimento Bispo ---------
+    printf("\nVocê escolheu: Bispo\n");
+    printf("Quantas casas quer mover o bispo?\n");   // a diagonal direita apenas
+
+    int casasbispo;                //Vai permitir o jogador a escolher a quant. de casas, junto com o scanf abaixo
+    scanf("%d", &casasbispo);
+         movebispocima (casasbispo);          //Executa a ação (teoricamente) , movendo primeiro para cima e depois para a direita (linha abaixo)
+         movebispodireita (casasbispo);
     break;
-    //---------------------Movimento Cavalo
-    case 4:
-            int movimentoCavaloBaixoDireita = 1;
-        while (movimentoCavaloBaixoDireita--)
+   
+    case 3:           //Movimento Rainha ------------------------- (com tentativa de usar while e continue)
+
+    printf("\nVocê escolheu: Rainha\n");
+    printf("Quantas casas quer mover a rainha?\n");  // a esquerda apenas
+
+    int casasrainha;       //Vai permitir o jogador a escolher a quant. de casas, junto com o scanf abaixo
+    scanf("%d", &casasrainha);
+
+    while (casasrainha > 0) {   //Executa a ação (teoricamente)
+        if (casasrainha > 0)
         {
-            for (int movimentoLBaixoDirCavalo = 0; movimentoLBaixoDirCavalo < 2; movimentoLBaixoDirCavalo++){ // Comentarios da linha abaixo
-                printf("Baixo\n"); // Imprime "baixo" 2 vezes. Seria mais facil apenas com uma sequencia de for como nas outras peças. Mas foi requisito
-            }                       
-            printf("Direita\n");    //Após o encerramento do for para baixo, imprime Direita uma unica vez 
-           
-        break;
+            printf("Esquerda\n");
+            casasrainha--;
+            continue;
+        }
         
-//Se encerra as opções de peças
+    }
+
+    break;
+
+    case 4:    //Movimento Cavalo  (movimento deve ser o mesmo antigo de L, exceto que agora é um L inverso. 2 casas acima e 1 a direita)
+
+    printf("\nVocê escolheu: Cavalo\n"); // não é possivel escolher a orientação ou casas devido aos requisitos          
+    for (int i = 0; i < 2; i++) {             //Executa a ação (teoricamente)
+        printf("Cima\n");
+    }
+        for (int i = 0; i < 1; i++) {
+        printf("Direita\n");
+    }
+   
+    
+
+
+    break;
 
     default:
     printf("Opção inválida! Tente novamente\n"); //Caso o jogador insira um numero além de 5
     break;
     }
 }
+   return 0;
 }
 
 
-    return 0;
-}
+ 
+
 
