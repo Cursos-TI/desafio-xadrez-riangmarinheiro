@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-  void movetorre(int casas) {        //Em breve vou alterar o nome do inteiro casas para casastorre
+  void movetorre(int casas) {        //Comandos e lógica para o movimento da torre
         if (casas > 0){
             printf("Direita\n");
             movetorre(casas - 1);
@@ -12,7 +12,7 @@
             movebispocima(casas -1);
         }
     }
-    void movebispodireita (int casas) {
+    void movebispodireita (int casas) {     //Comandos e lógica para o movimento do bispo
         if (casas > 0) {
             printf("Direita\n");
             movebispodireita(casas - 1);
@@ -26,7 +26,7 @@ int main(){
 
    /* int movimento;          registra movimento da peça - não está sendo utilizado, mas vai servir de backup */
     int opcaojogador = 0;    //Vai registrar a opção do menu escolhida
-    //Registro de loops recursivos de peças com void
+    
   
 
     while (opcaojogador != 5) {   
@@ -91,7 +91,7 @@ int main(){
     for (int i = 0; i < 2; i++) {             //Executa a ação (teoricamente)
         printf("Cima\n");
     }
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 1; i++) {      //Completa a ação movendo também para a direita, como esperado
         printf("Direita\n");
     }
    
